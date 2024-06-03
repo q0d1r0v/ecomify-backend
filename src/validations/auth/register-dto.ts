@@ -1,17 +1,22 @@
 // imports
+import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 
 // export register dto class
 export class RegisterDto {
   @IsNotEmpty()
+  @ApiProperty()
   username: string;
 
   @IsNotEmpty()
+  @ApiProperty()
   full_name: string;
 
   @IsNotEmpty()
-  password: any;
+  @ApiProperty()
+  password: string;
 
   @IsNotEmpty()
-  register_secret_key: any;
+  @ApiProperty()
+  register_secret_key: string;
 }

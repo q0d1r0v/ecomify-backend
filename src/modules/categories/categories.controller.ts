@@ -9,7 +9,7 @@ import { ServiceOfCategory } from './categories.service';
 export class ControllerOfCategory {
   constructor(private readonly controllerOfCategory: ServiceOfCategory) {}
 
-  @Get('/get-categories')
+  @Get('/api/get-categories')
   getCategories() {
     return this.controllerOfCategory.getCategories();
   }

@@ -14,25 +14,35 @@ datasource db {
 }
 
 model users {
-  id    Int     @default(autoincrement()) @id
-  full_name String
-  username String  @unique
-  password String
+  id         Int      @id @default(autoincrement())
+  full_name  String
+  username   String   @unique
+  password   String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model categories {
-  id    Int     @default(autoincrement()) @id
-  title String  @unique
+  id         Int      @id @default(autoincrement())
+  title      String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
+
 model priducts {
-  id    Int     @default(autoincrement()) @id
-  title String
-  price String
+  id          Int      @id @default(autoincrement())
+  title       String
+  price       String
   description String
   category_id String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 }
+
 model images {
-  id    Int     @default(autoincrement()) @id
-  name String @unique
-  procut_id String
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  procut_id   String?
+  category_id String?
+  created_at  DateTime @default(now())
 }

@@ -8,8 +8,8 @@ async function bootstrap() {
 
   // swagger config
   const config = new DocumentBuilder()
-    .setTitle('ECOMIFY backend api docs')
-    .setDescription('The cats API description')
+    .setTitle('Api docs of ECOMIFY')
+    .setDescription("Don't pick on mid")
     .setVersion('1.0')
     .addTag('ECOMIFY docs')
     .build();
