@@ -2,12 +2,31 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { prisma_client } from '../../prisma.service';
 import * as bcrypt from 'bcrypt';
+import { ToPagination } from 'to-pagination';
 
 // use Injectable
 @Injectable()
 
 // export class
 export class ServiceOfUser {
+  async getUsers(query) {
+    const { user_name, page_number, limit } = query;
+    // const user =
+    //   await prisma_client.$queryRaw`SELECT * FROM users WHERE username LIKE '%${user_name}%'`;
+    if (user_name) {
+      const user = await prisma_client.users.findMany({
+        where: {
+          full_name: { contains: `${user_name}` },
+        },
+      });
+      const p_data = ToPagination(page_number, limit, user);
+      return p_data;
+    } else {
+      const user = await prisma_client.users.findMany();
+      const p_data = ToPagination(page_number, limit, user);
+      return p_data;
+    }
+  }
   async deleteUser(query) {
     try {
       const { user_id } = query;

@@ -1,6 +1,6 @@
 // imports
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsOptional } from 'class-validator';
 
 // export login dto class
 export class UpdateUserDto {
@@ -25,4 +25,17 @@ export class DeleteUserDto {
   @IsNotEmpty()
   @ApiProperty()
   user_id: string;
+}
+
+export class GetUsersDto {
+  @ApiProperty()
+  user_name?: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  page_number: number;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  limit: number;
 }

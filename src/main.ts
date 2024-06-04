@@ -13,11 +13,8 @@ async function bootstrap() {
     .setVersion('1.0')
     .addTag('ECOMIFY docs')
     .build();
-  const options = {
-    operationIdFactory: (controllerKey: string, methodKey: string) => methodKey,
-  };
 
-  const document = SwaggerModule.createDocument(app, config, options);
+  const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/docs', app, document);
 
   app.useGlobalPipes(new ValidationPipe());
