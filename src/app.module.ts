@@ -2,14 +2,26 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ModuleOfCategory } from './modules/categories/categories.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 // modules
 import { AuthMiddleware } from './modules/middleware/auth';
 import { UserModule } from './modules/user/user.module';
+import { FileModule } from './modules/file/file.module';
+import { join } from 'path';
 
 // use modules
 @Module({
-  imports: [ModuleOfCategory, AuthModule, UserModule],
+  imports: [
+    ModuleOfCategory,
+    AuthModule,
+    UserModule,
+    FileModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../'),
+      renderPath: '/uploads',
+    }),
+  ],
 })
 
 // export App Module and use middleware

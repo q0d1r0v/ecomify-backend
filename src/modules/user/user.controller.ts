@@ -9,13 +9,13 @@ import {
 import { ApiQuery } from '@nestjs/swagger';
 
 // use controller
-@Controller('api')
+@Controller('/')
 
 // export posts controller class
 export class ControllerOfUser {
   constructor(private readonly controllerOfUser: ServiceOfUser) {}
 
-  @Get('/admin/get-users')
+  @Get('/admin/api/get-users')
   @ApiQuery({ name: 'user_name', required: false, type: String })
   @ApiQuery({ name: 'page_number', required: true, type: Number })
   @ApiQuery({ name: 'limit', required: true, type: Number })
@@ -23,12 +23,12 @@ export class ControllerOfUser {
     return this.controllerOfUser.getUsers(query);
   }
 
-  @Put('/admin/update-user')
+  @Put('/admin/api/update-user')
   updateUser(@Query() query: UpdateUserDto) {
     return this.controllerOfUser.updateUser(query);
   }
 
-  @Delete('/admin/delete-user')
+  @Delete('/admin/api/delete-user')
   deleteUser(@Query() query: DeleteUserDto) {
     return this.controllerOfUser.deleteUser(query);
   }

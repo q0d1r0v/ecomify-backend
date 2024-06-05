@@ -42,7 +42,8 @@ model priducts {
 model images {
   id          Int      @id @default(autoincrement())
   name        String   @unique
-  procut_id   String?
-  category_id String?
+  product_id  Int?
+  category_id Int?
   created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 }
