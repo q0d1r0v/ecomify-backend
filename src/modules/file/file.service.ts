@@ -1,6 +1,8 @@
 // imports
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { prisma_client } from '../../prisma.service';
+import * as fs from 'fs';
+import * as path from 'path';
 
 // use Injectable
 @Injectable()
@@ -8,7 +10,7 @@ import { prisma_client } from '../../prisma.service';
 // export class
 export class ServiceOfFile {
   async createFile(files, body) {
-    const { category_id, product_id } = body;
+    const { category_id, product_id, file_name } = body;
     if (category_id) {
       files.map(async (file) => {
         await prisma_client.images.create({
@@ -30,7 +32,20 @@ export class ServiceOfFile {
         return new HttpException('Created product!', HttpStatus.CREATED);
       });
     } else {
-      return new HttpException('BAD_REQUEST', HttpStatus.BAD_REQUEST);
+      if (file_name) {
+        fs.unlink(
+          path.join(__dirname, '../../../uploads/') + file_name,
+          (err) => {
+            if (err) throw err;
+          },
+        );
+      }
+      return new HttpException(
+        {
+          message: `Bad request with ${file_name}`,
+        },
+        HttpStatus.BAD_REQUEST,
+      );
     }
     return 'create file';
   }

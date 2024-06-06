@@ -1,9 +1,19 @@
 // imports
-import { Body, Controller, Get, Post, Put, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { ServiceOfCategory } from './categories.service';
 import {
   CreateCategoryDto,
   UpdateCategoryDto,
+  GetCategoriesDto,
+  DeleteCategoryDto,
 } from '../../validations/categories/category';
 
 // use controller
@@ -14,8 +24,8 @@ export class ControllerOfCategory {
   constructor(private readonly controllerOfCategory: ServiceOfCategory) {}
 
   @Get('/api/get-categories')
-  getCategories() {
-    return this.controllerOfCategory.getCategories();
+  getCategories(@Query() query: GetCategoriesDto) {
+    return this.controllerOfCategory.getCategories(query);
   }
 
   @Post('/admin/api/create-category')
@@ -26,5 +36,10 @@ export class ControllerOfCategory {
   @Put('/admin/api/update-category')
   updateCategory(@Query() query: UpdateCategoryDto) {
     return this.controllerOfCategory.updateCategory(query);
+  }
+
+  @Delete('/admin/api/delete-category')
+  deleteCategory(@Query() query: DeleteCategoryDto) {
+    return this.controllerOfCategory.deleteCategory(query);
   }
 }

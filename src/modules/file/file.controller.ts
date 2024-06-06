@@ -33,7 +33,7 @@ export class FileController {
         filename: (req, file, cb) => {
           const unique_name =
             Date.now() + '-' + Math.round(Math.random() * 1e9);
-
+          req.body.file_name = unique_name + '-' + file.originalname;
           cb(null, unique_name + '-' + file.originalname);
         },
       }),

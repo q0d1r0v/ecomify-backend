@@ -4,7 +4,11 @@ import { IsNotEmpty } from 'class-validator';
 export class CreateCategoryDto {
   @ApiProperty()
   @IsNotEmpty()
-  name: string;
+  name_uz: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  name_ru: string;
 }
 
 export class UpdateCategoryDto {
@@ -14,5 +18,21 @@ export class UpdateCategoryDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  name: string;
+  name_uz: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  name_ru: string;
+}
+
+export class GetCategoriesDto {
+  @ApiProperty()
+  @IsNotEmpty()
+  lang: string;
+}
+
+export class DeleteCategoryDto {
+  @ApiProperty()
+  @IsNotEmpty()
+  category_id: number;
 }

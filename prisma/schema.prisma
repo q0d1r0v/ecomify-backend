@@ -24,19 +24,22 @@ model users {
 
 model categories {
   id         Int      @id @default(autoincrement())
-  title      String   @unique
+  name_uz    String   @unique
+  name_ru    String   @unique
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
 
 model priducts {
-  id          Int      @id @default(autoincrement())
-  title       String
-  price       String
-  description String
-  category_id String
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  id             Int      @id @default(autoincrement())
+  name_uz        String
+  name_ru        String
+  price          String
+  description_uz String
+  description_ru String
+  category_id    String
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
 }
 
 model images {
