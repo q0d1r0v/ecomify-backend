@@ -3,12 +3,13 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ModuleOfCategory } from './modules/categories/categories.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 // modules
 import { AuthMiddleware } from './modules/middleware/auth';
 import { UserModule } from './modules/user/user.module';
 import { FileModule } from './modules/file/file.module';
-import { join } from 'path';
+import { ProductModule } from './modules/products/product.moduel';
 
 // use modules
 @Module({
@@ -17,6 +18,7 @@ import { join } from 'path';
     AuthModule,
     UserModule,
     FileModule,
+    ProductModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../'),
       renderPath: '/uploads',

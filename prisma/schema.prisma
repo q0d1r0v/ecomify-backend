@@ -30,7 +30,7 @@ model categories {
   updated_at DateTime @updatedAt
 }
 
-model priducts {
+model products {
   id             Int      @id @default(autoincrement())
   name_uz        String
   name_ru        String
@@ -38,8 +38,15 @@ model priducts {
   description_uz String
   description_ru String
   category_id    String
+  active         Boolean  @default(true)
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt
+}
+
+model banner {
+  id         Int      @id @default(autoincrement())
+  name       String   @unique
+  created_at DateTime @default(now())
 }
 
 model images {
@@ -47,6 +54,7 @@ model images {
   name        String   @unique
   product_id  Int?
   category_id Int?
+  banner_id   Int?
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 }

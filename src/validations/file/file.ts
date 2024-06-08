@@ -9,4 +9,7 @@ export class CreateFileDto {
 
   @ApiProperty()
   category_id?: number;
+
+  @ApiProperty()
+  banner_id?: number;
 }

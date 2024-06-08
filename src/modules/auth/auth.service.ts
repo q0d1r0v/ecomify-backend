@@ -29,11 +29,13 @@ export class AuthService {
 
         if (boo) {
           const access_token = await jwt.sign(user, process.env.JWT_KEY, {
-            expiresIn: '24h',
+            expiresIn: '72h',
           });
 
+          delete user.password;
           return new HttpException(
             {
+              user,
               access_token,
             },
             HttpStatus.OK,
