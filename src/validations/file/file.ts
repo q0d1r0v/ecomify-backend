@@ -11,5 +11,5 @@ export class CreateFileDto {
   category_id?: number;
 
   @ApiProperty()
-  banner_id?: number;
+  is_banner?: boolean;
 }

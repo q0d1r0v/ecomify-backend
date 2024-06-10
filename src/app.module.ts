@@ -9,7 +9,8 @@ import { join } from 'path';
 import { AuthMiddleware } from './modules/middleware/auth';
 import { UserModule } from './modules/user/user.module';
 import { FileModule } from './modules/file/file.module';
-import { ProductModule } from './modules/products/product.moduel';
+import { ProductModule } from './modules/products/product.module';
+import { BannerModule } from './modules/banner/banner.module';
 
 // use modules
 @Module({
@@ -19,6 +20,7 @@ import { ProductModule } from './modules/products/product.moduel';
     UserModule,
     FileModule,
     ProductModule,
+    BannerModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../'),
       renderPath: '/uploads',

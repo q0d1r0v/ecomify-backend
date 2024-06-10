@@ -10,7 +10,7 @@ import * as path from 'path';
 // export class
 export class ServiceOfFile {
   async createFile(files, body) {
-    const { category_id, product_id, banner_id, file_name } = body;
+    const { category_id, product_id, is_banner, file_name } = body;
     if (category_id) {
       files.map(async (file) => {
         await prisma_client.images.create({
@@ -31,7 +31,16 @@ export class ServiceOfFile {
         });
         return new HttpException('Created product!', HttpStatus.CREATED);
       });
-    } else if (banner_id) {
+    } else if (is_banner) {
+      files.map(async (file) => {
+        await prisma_client.images.create({
+          data: {
+            is_banner: true,
+            name: file.filename,
+          },
+        });
+        return new HttpException('Created banner!', HttpStatus.CREATED);
+      });
     } else {
       if (file_name) {
         fs.unlink(

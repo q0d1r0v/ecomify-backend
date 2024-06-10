@@ -43,18 +43,12 @@ model products {
   updated_at     DateTime @updatedAt
 }
 
-model banner {
-  id         Int      @id @default(autoincrement())
-  name       String   @unique
-  created_at DateTime @default(now())
-}
-
 model images {
   id          Int      @id @default(autoincrement())
   name        String   @unique
   product_id  Int?
   category_id Int?
-  banner_id   Int?
+  is_banner   Boolean  @default(false)
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 }

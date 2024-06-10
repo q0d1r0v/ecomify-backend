@@ -150,4 +150,37 @@ export class ServiceOfProduct {
       );
     }
   }
+  async updateProductInfo(query) {
+    const {
+      product_id,
+      name_uz,
+      name_ru,
+      price,
+      description_uz,
+      description_ru,
+      category_id,
+    } = query;
+
+    try {
+      await prisma_client.products.update({
+        where: {
+          id: ~~product_id,
+        },
+        data: {
+          name_uz,
+          name_ru,
+          price,
+          description_uz,
+          description_ru,
+          category_id,
+        },
+      });
+      return new HttpException('Updated product!', HttpStatus.OK);
+    } catch (err) {
+      return new HttpException(
+        'INTERNAL_SERVER_ERROR!',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
 }

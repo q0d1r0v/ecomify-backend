@@ -14,6 +14,7 @@ import {
   CreateProductDto,
   DeleteProductDto,
   UpdateActiveOfProductDto,
+  UpdateProductInfoDto,
 } from '../../validations/products/product';
 
 // use controller
@@ -36,6 +37,11 @@ export class ControllerOfProduct {
   @Put('/admin/api/update-status-of-product')
   updateStatusOfProduct(@Query() query: UpdateActiveOfProductDto) {
     return this.controllerOfProduct.changeStatusOfProduct(query);
+  }
+
+  @Put('/admin/api/update-product-info')
+  updateProductInfo(@Query() query: UpdateProductInfoDto) {
+    return this.controllerOfProduct.updateProductInfo(query);
   }
 
   @Delete('/admin/api/delete-product')
