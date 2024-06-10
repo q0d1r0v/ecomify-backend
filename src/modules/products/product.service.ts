@@ -10,6 +10,21 @@ import * as path from 'path';
 
 // export class
 export class ServiceOfProduct {
+  async showOrderProduct(query) {
+    const { product_id } = query;
+
+    try {
+      const product = await prisma_client.products.findUnique({
+        where: {
+          id: ~~product_id,
+        },
+      });
+
+      return new HttpException({ data: product }, HttpStatus.OK);
+    } catch (err) {
+      return new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
   async getProducts(query) {
     const { lang, name, page_number, limit } = query;
     let products = [];

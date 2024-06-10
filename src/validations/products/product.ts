@@ -53,6 +53,11 @@ export class UpdateActiveOfProductDto {
   @IsNotEmpty()
   product_id: number;
 }
+export class ShowOrderProductDto {
+  @ApiProperty()
+  @IsNotEmpty()
+  product_id: number;
+}
 
 export class UpdateProductInfoDto {
   @ApiProperty()

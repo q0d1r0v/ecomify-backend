@@ -15,6 +15,7 @@ import {
   DeleteProductDto,
   UpdateActiveOfProductDto,
   UpdateProductInfoDto,
+  ShowOrderProductDto,
 } from '../../validations/products/product';
 
 // use controller
@@ -23,6 +24,11 @@ import {
 // export product controller class
 export class ControllerOfProduct {
   constructor(private readonly controllerOfProduct: ServiceOfProduct) {}
+
+  @Get('/admin/api/show-order-product')
+  showOrderProduct(@Query() query: ShowOrderProductDto) {
+    return this.controllerOfProduct.showOrderProduct(query);
+  }
 
   @Get('/api/get-products')
   getCategories(@Query() query: GetProductsDto) {
