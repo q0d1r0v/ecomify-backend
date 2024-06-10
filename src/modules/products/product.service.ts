@@ -39,6 +39,7 @@ export class ServiceOfProduct {
       products = await prisma_client.products.findMany();
     }
 
+    console;
     const prs = await Promise.all(
       products.map(async (product: any) => {
         product.images = await prisma_client.images.findMany({
