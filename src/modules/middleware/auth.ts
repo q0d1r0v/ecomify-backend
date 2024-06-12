@@ -17,7 +17,7 @@ export class AuthMiddleware implements NestMiddleware {
           next();
         });
       } catch (e) {
-        res.status(400).send({
+        res.status(401).send({
           message: 'Invalid token!',
         });
       }

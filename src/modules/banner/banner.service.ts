@@ -27,11 +27,19 @@ export class ServiceOfBanner {
   async deleteBanner(query) {
     const { banner_id } = query;
     try {
-      await prisma_client.images.delete({
+      const banner = await prisma_client.images.delete({
         where: {
           id: ~~banner_id,
         },
       });
+      if (banner.name) {
+        fs.unlink(
+          path.join(__dirname, '../../../uploads/') + banner?.name,
+          (err) => {
+            if (err) throw err;
+          },
+        );
+      }
 
       return new HttpException('Deleted banner!', HttpStatus.OK);
     } catch (err) {

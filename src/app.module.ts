@@ -12,6 +12,8 @@ import { FileModule } from './modules/file/file.module';
 import { ProductModule } from './modules/products/product.module';
 import { BannerModule } from './modules/banner/banner.module';
 import { OrderModule } from './modules/orders/orders.module';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 // use modules
 @Module({
@@ -27,6 +29,18 @@ import { OrderModule } from './modules/orders/orders.module';
       rootPath: join(__dirname, '../'),
       renderPath: '/uploads',
     }),
+    ThrottlerModule.forRoot([
+      {
+        ttl: 1,
+        limit: 60,
+      },
+    ]),
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
   ],
 })
 

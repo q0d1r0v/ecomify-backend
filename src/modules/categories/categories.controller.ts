@@ -23,6 +23,11 @@ import {
 export class ControllerOfCategory {
   constructor(private readonly controllerOfCategory: ServiceOfCategory) {}
 
+  @Get('/admin/api/get-all-categories')
+  getAllCategories() {
+    return this.controllerOfCategory.getAllCategories();
+  }
+
   @Get('/api/get-categories')
   getCategories(@Query() query: GetCategoriesDto) {
     return this.controllerOfCategory.getCategories(query);
@@ -34,8 +39,8 @@ export class ControllerOfCategory {
   }
 
   @Put('/admin/api/update-category')
-  updateCategory(@Query() query: UpdateCategoryDto) {
-    return this.controllerOfCategory.updateCategory(query);
+  updateCategory(@Body() body: UpdateCategoryDto) {
+    return this.controllerOfCategory.updateCategory(body);
   }
 
   @Delete('/admin/api/delete-category')

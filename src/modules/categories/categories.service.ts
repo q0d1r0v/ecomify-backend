@@ -9,6 +9,28 @@ import * as fs from 'fs';
 
 // export class
 export class ServiceOfCategory {
+  async getAllCategories() {
+    const categories = await prisma_client.categories.findMany();
+
+    const categories_with_img = await Promise.all(
+      categories.map(async (category: any) => {
+        category.images = await prisma_client.images.findMany({
+          where: {
+            category_id: category.id,
+          },
+        });
+
+        return category;
+      }),
+    );
+
+    return new HttpException(
+      {
+        data: categories_with_img,
+      },
+      HttpStatus.OK,
+    );
+  }
   async getCategories(query) {
     const { lang } = query;
 
@@ -71,8 +93,8 @@ export class ServiceOfCategory {
     }
   }
 
-  async updateCategory(query) {
-    const { category_id, name_uz, name_ru } = query;
+  async updateCategory(body) {
+    const { category_id, name_uz, name_ru } = body;
     const category = await prisma_client.categories.findUnique({
       where: {
         id: category_id,

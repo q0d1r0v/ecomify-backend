@@ -31,7 +31,7 @@ export class ServiceOfFile {
         });
         return new HttpException('Created product!', HttpStatus.CREATED);
       });
-    } else if (is_banner) {
+    } else if (is_banner == 'active') {
       files.map(async (file) => {
         await prisma_client.images.create({
           data: {
