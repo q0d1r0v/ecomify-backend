@@ -41,13 +41,13 @@ export class ControllerOfProduct {
   }
 
   @Put('/admin/api/update-status-of-product')
-  updateStatusOfProduct(@Query() query: UpdateActiveOfProductDto) {
-    return this.controllerOfProduct.changeStatusOfProduct(query);
+  updateStatusOfProduct(@Body() body: UpdateActiveOfProductDto) {
+    return this.controllerOfProduct.changeStatusOfProduct(body);
   }
 
   @Put('/admin/api/update-product-info')
-  updateProductInfo(@Query() query: UpdateProductInfoDto) {
-    return this.controllerOfProduct.updateProductInfo(query);
+  updateProductInfo(@Body() body: UpdateProductInfoDto) {
+    return this.controllerOfProduct.updateProductInfo(body);
   }
 
   @Delete('/admin/api/delete-product')

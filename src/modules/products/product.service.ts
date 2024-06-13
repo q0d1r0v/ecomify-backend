@@ -27,17 +27,8 @@ export class ServiceOfProduct {
   }
   async getProducts(query) {
     const { lang, name, page_number, limit } = query;
-    let products = [];
-
-    if (lang === 'uz' && name) {
-      products =
-        await prisma_client.$queryRaw`SELECT * FROM products WHERE name_uz LIKE '%' || ${name} || '%'`;
-    } else if (lang === 'ru' && name) {
-      products =
-        await prisma_client.$queryRaw`SELECT * FROM products WHERE name_ru LIKE '%' || ${name} || '%'`;
-    } else {
-      products = await prisma_client.products.findMany();
-    }
+    const products: any[] =
+      await prisma_client.$queryRaw`SELECT * FROM products WHERE name_uz LIKE '%' || ${name} || '%' OR name_ru LIKE '%' || ${name} || '%'`;
     const prs = await Promise.all(
       products.map(async (product: any) => {
         product.images = await prisma_client.images.findMany({
@@ -52,10 +43,6 @@ export class ServiceOfProduct {
           product.name = product.name_ru;
           product.description = product.description_ru;
         }
-        delete product.name_uz;
-        delete product.name_ru;
-        delete product.description_uz;
-        delete product.description_ru;
 
         return product;
       }),
@@ -66,9 +53,12 @@ export class ServiceOfProduct {
     } else {
       with_pg_data = ToPagination(1, 20, prs);
     }
-    return {
-      data: with_pg_data,
-    };
+    return new HttpException(
+      {
+        data: with_pg_data,
+      },
+      HttpStatus.OK,
+    );
   }
 
   async createProduct(body) {
@@ -86,8 +76,8 @@ export class ServiceOfProduct {
         name_ru,
         description_uz,
         description_ru,
-        category_id,
-        price,
+        category_id: ~~category_id,
+        price: ~~price,
       },
     });
     return new HttpException(
@@ -137,8 +127,8 @@ export class ServiceOfProduct {
       );
     }
   }
-  async changeStatusOfProduct(query) {
-    const { product_id } = query;
+  async changeStatusOfProduct(body) {
+    const { product_id } = body;
 
     const product = await prisma_client.products.findUnique({
       where: {
@@ -164,7 +154,7 @@ export class ServiceOfProduct {
       );
     }
   }
-  async updateProductInfo(query) {
+  async updateProductInfo(body) {
     const {
       product_id,
       name_uz,
@@ -173,7 +163,7 @@ export class ServiceOfProduct {
       description_uz,
       description_ru,
       category_id,
-    } = query;
+    } = body;
 
     try {
       await prisma_client.products.update({
@@ -183,7 +173,7 @@ export class ServiceOfProduct {
         data: {
           name_uz,
           name_ru,
-          price,
+          price: ~~price,
           description_uz,
           description_ru,
           category_id,

@@ -35,11 +35,11 @@ export class CreateProductDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  category_id: string;
+  category_id: number;
 
   @ApiProperty()
   @IsNotEmpty()
-  price: string;
+  price: number;
 }
 
 export class DeleteProductDto {

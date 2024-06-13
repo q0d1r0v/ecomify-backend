@@ -34,10 +34,10 @@ model products {
   id             Int      @id @default(autoincrement())
   name_uz        String
   name_ru        String
-  price          String
+  price          Int
   description_uz String
   description_ru String
-  category_id    String
+  category_id    Int
   active         Boolean  @default(true)
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt
