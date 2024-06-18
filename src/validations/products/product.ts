@@ -15,6 +15,21 @@ export class GetProductsDto {
   @ApiProperty()
   limit: string;
 }
+export class GetProductsWithCategoryId {
+  @IsNotEmpty()
+  @ApiProperty()
+  category_id: number;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  lang: string;
+
+  @ApiProperty()
+  page_number: string;
+
+  @ApiProperty()
+  limit: string;
+}
 
 export class CreateProductDto {
   @ApiProperty()
@@ -87,4 +102,10 @@ export class UpdateProductInfoDto {
   @ApiProperty()
   @IsNotEmpty()
   category_id: string;
+}
+
+export class GetRandomProductsDto {
+  @ApiProperty()
+  @IsNotEmpty()
+  lang: string;
 }

@@ -16,6 +16,8 @@ import {
   UpdateActiveOfProductDto,
   UpdateProductInfoDto,
   ShowOrderProductDto,
+  GetRandomProductsDto,
+  GetProductsWithCategoryId,
 } from '../../validations/products/product';
 
 // use controller
@@ -25,9 +27,19 @@ import {
 export class ControllerOfProduct {
   constructor(private readonly controllerOfProduct: ServiceOfProduct) {}
 
+  @Get('/api/get-random-products')
+  getRandomProducts(@Query() query: GetRandomProductsDto) {
+    return this.controllerOfProduct.getRandomProducts(query);
+  }
+
   @Get('/admin/api/show-order-product')
   showOrderProduct(@Query() query: ShowOrderProductDto) {
     return this.controllerOfProduct.showOrderProduct(query);
+  }
+
+  @Get('/api/get-products-with-category_id')
+  getProductsWithCategoryId(@Query() query: GetProductsWithCategoryId) {
+    return this.controllerOfProduct.getProductsWithCategoryId(query);
   }
 
   @Get('/api/get-products')
