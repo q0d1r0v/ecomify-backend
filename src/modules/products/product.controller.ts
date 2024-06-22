@@ -32,7 +32,7 @@ export class ControllerOfProduct {
     return this.controllerOfProduct.getRandomProducts(query);
   }
 
-  @Get('/admin/api/show-order-product')
+  @Get('/api/show-order-product')
   showOrderProduct(@Query() query: ShowOrderProductDto) {
     return this.controllerOfProduct.showOrderProduct(query);
   }

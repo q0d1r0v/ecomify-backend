@@ -20,7 +20,18 @@ export class ServiceOfProduct {
         },
       });
 
-      return new HttpException({ data: product }, HttpStatus.OK);
+      const images = await prisma_client.images.findMany({
+        where: {
+          product_id: ~~product_id,
+        },
+      });
+
+      const p_data = {
+        product,
+        images,
+      };
+
+      return new HttpException({ data: p_data }, HttpStatus.OK);
     } catch (err) {
       return new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);
     }
