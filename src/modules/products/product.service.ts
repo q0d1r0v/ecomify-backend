@@ -11,7 +11,7 @@ import * as path from 'path';
 // export class
 export class ServiceOfProduct {
   async showOrderProduct(query) {
-    const { product_id } = query;
+    const { product_id, lang } = query;
 
     try {
       const product = await prisma_client.products.findUnique({
@@ -26,9 +26,17 @@ export class ServiceOfProduct {
         },
       });
 
+      let product_description = '';
+      if (lang === 'uz') {
+        product_description = product.description_uz;
+      } else {
+        product_description = product.description_ru;
+      }
+
       const p_data = {
         product,
         images,
+        product_description,
       };
 
       return new HttpException({ data: p_data }, HttpStatus.OK);
@@ -245,7 +253,7 @@ export class ServiceOfProduct {
   async getRandomProducts(query) {
     const { lang } = query;
     const products: any[] =
-      await prisma_client.$queryRaw`SELECT * FROM products WHERE active = true ORDER BY RANDOM() LIMIT 15`;
+      await prisma_client.$queryRaw`SELECT * FROM products WHERE active = true ORDER BY RANDOM() LIMIT 18`;
 
     const selected_products = await Promise.all(
       products.map(async (product) => {

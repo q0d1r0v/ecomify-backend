@@ -16,7 +16,6 @@ export class ServiceOfOrders {
       description,
       product_id,
       additional_phone_number,
-      user_id,
     } = body;
     try {
       await prisma_client.orders.create({
@@ -29,7 +28,6 @@ export class ServiceOfOrders {
             : '',
           description,
           product_id: ~~product_id,
-          user_id: ~~user_id,
         },
       });
       return new HttpException('Created order!', HttpStatus.CREATED);
@@ -39,14 +37,14 @@ export class ServiceOfOrders {
   }
 
   async doneOrder(query) {
-    const { order_id } = query;
+    const { order_id, status } = query;
     try {
       await prisma_client.orders.update({
         where: {
           id: ~~order_id,
         },
         data: {
-          done: true,
+          done: status,
         },
       });
       return new HttpException('Done order!', HttpStatus.OK);
@@ -56,12 +54,33 @@ export class ServiceOfOrders {
   }
 
   async getActiveOrders(query) {
-    const { page_number, limit } = query;
-    const active_orders = await prisma_client.orders.findMany({
-      where: {
-        done: false,
-      },
-    });
+    const { page_number, limit, status, order_id } = query;
+
+    let active_orders = [];
+
+    if (status === 'active') {
+      active_orders = await prisma_client.orders.findMany({
+        where: {
+          done: false,
+        },
+      });
+    } else if (status === 'done') {
+      active_orders = await prisma_client.orders.findMany({
+        where: {
+          done: true,
+        },
+      });
+    } else {
+      active_orders = await prisma_client.orders.findMany();
+    }
+
+    if (order_id) {
+      active_orders = await prisma_client.orders.findMany({
+        where: {
+          id: ~~order_id,
+        },
+      });
+    }
 
     const with_pg = ToPagination(page_number, limit, active_orders);
 

@@ -23,7 +23,7 @@ import {
 export class ControllerOfOrder {
   constructor(private readonly controllerOfOrder: ServiceOfOrders) {}
 
-  @Get('/admin/api/get-active-orders')
+  @Get('/admin/api/get-orders')
   getActiveOrders(@Query() query: GetActiveOrdersDto) {
     return this.controllerOfOrder.getActiveOrders(query);
   }
@@ -38,8 +38,8 @@ export class ControllerOfOrder {
     return this.controllerOfOrder.createOrder(body);
   }
 
-  @Put('/admin/api/done-order')
-  doneOrder(@Query() query: DoneOrderDto) {
-    return this.controllerOfOrder.doneOrder(query);
+  @Put('/admin/api/update-order')
+  doneOrder(@Body() body: DoneOrderDto) {
+    return this.controllerOfOrder.doneOrder(body);
   }
 }

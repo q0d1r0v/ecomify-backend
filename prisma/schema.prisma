@@ -61,7 +61,6 @@ model orders {
   additional_phone_number String?
   description             String
   product_id              Int
-  user_id                 Int
   done                    Boolean  @default(false)
   created_at              DateTime @default(now())
   updated_at              DateTime @updatedAt

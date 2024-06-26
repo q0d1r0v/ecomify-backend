@@ -4,10 +4,6 @@ import { IsNotEmpty } from 'class-validator';
 export class CreateOrderDto {
   @ApiProperty()
   @IsNotEmpty()
-  user_id: number;
-
-  @ApiProperty()
-  @IsNotEmpty()
   full_name: string;
 
   @ApiProperty()
@@ -34,12 +30,22 @@ export class DoneOrderDto {
   @ApiProperty()
   @IsNotEmpty()
   order_id: number;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  status: boolean;
 }
 
 export class GetActiveOrdersDto {
   @ApiProperty()
   @IsNotEmpty()
   page_number: number;
+
+  @ApiProperty()
+  status?: string;
+
+  @ApiProperty()
+  order_id?: number;
 
   @ApiProperty()
   @IsNotEmpty()

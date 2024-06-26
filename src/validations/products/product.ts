@@ -72,6 +72,7 @@ export class ShowOrderProductDto {
   @ApiProperty()
   @IsNotEmpty()
   product_id: number;
+  lang: string;
 }
 
 export class UpdateProductInfoDto {
