@@ -6,19 +6,19 @@ import { IsNotEmpty, IsOptional } from 'class-validator';
 export class UpdateUserDto {
   @IsNotEmpty()
   @ApiProperty()
+  user_id: string;
+
+  @IsNotEmpty()
+  @ApiProperty()
+  full_name: string;
+
+  @IsNotEmpty()
+  @ApiProperty()
   username: string;
 
   @IsNotEmpty()
   @ApiProperty()
   password: string;
-
-  @IsNotEmpty()
-  @ApiProperty()
-  new_username: string;
-
-  @IsNotEmpty()
-  @ApiProperty()
-  new_password: string;
 }
 
 export class DeleteUserDto {
@@ -30,12 +30,4 @@ export class DeleteUserDto {
 export class GetUsersDto {
   @ApiProperty()
   user_name?: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  page_number: number;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  limit: number;
 }

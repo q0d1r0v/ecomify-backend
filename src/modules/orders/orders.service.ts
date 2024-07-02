@@ -8,6 +8,41 @@ import { ToPagination } from 'to-pagination';
 
 // export class
 export class ServiceOfOrders {
+  async getDashboardOrders(query) {
+    const { from_date, to_date } = query;
+    try {
+      const done_orders = await prisma_client.orders.findMany({
+        where: {
+          created_at: {
+            gte: new Date(from_date),
+            lte: new Date(to_date),
+          },
+          done: true,
+        },
+      });
+      const orders = await prisma_client.orders.findMany({
+        where: {
+          created_at: {
+            gte: new Date(from_date),
+            lte: new Date(to_date),
+          },
+          done: false,
+        },
+      });
+      return new HttpException(
+        {
+          data: {
+            done_orders: done_orders.length,
+            orders: orders.length,
+          },
+        },
+        HttpStatus.OK,
+      );
+    } catch (err) {
+      console.log(err);
+      return new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
   async createOrder(body) {
     const {
       full_name,

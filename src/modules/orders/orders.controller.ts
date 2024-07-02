@@ -13,6 +13,7 @@ import {
   CreateOrderDto,
   DoneOrderDto,
   GetActiveOrdersDto,
+  GetOrdersWithDateDto,
   GetOrdersWithIdDto,
 } from 'src/validations/order/order';
 
@@ -22,6 +23,11 @@ import {
 // export order controller class
 export class ControllerOfOrder {
   constructor(private readonly controllerOfOrder: ServiceOfOrders) {}
+
+  @Get('/admin/api/get-orders-dashboard')
+  getDashboardOrders(@Query() query: GetOrdersWithDateDto) {
+    return this.controllerOfOrder.getDashboardOrders(query);
+  }
 
   @Get('/admin/api/get-orders')
   getActiveOrders(@Query() query: GetActiveOrdersDto) {

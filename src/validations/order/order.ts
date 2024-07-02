@@ -57,3 +57,11 @@ export class GetOrdersWithIdDto {
   @IsNotEmpty()
   order_id: number;
 }
+
+export class GetOrdersWithDateDto {
+  @ApiProperty()
+  from_date: number;
+
+  @ApiProperty()
+  to: number;
+}
