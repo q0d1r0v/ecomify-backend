@@ -17,6 +17,5 @@ export class RegisterDto {
   password: string;
 
   @IsNotEmpty()
-  @ApiProperty()
   register_secret_key: string;
 }

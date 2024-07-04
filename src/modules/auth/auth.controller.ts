@@ -3,8 +3,10 @@ import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from 'src/validations/auth/register-dto';
 import { LoginDto } from 'src/validations/auth/login-dto';
+import { ApiExcludeController } from '@nestjs/swagger';
 
 // use controller
+@ApiExcludeController(true)
 @Controller('auth')
 
 // export controller class
