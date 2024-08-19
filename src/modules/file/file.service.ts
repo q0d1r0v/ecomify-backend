@@ -43,12 +43,9 @@ export class ServiceOfFile {
       });
     } else {
       if (file_name) {
-        fs.unlink(
-          path.join(__dirname, '../../../uploads/') + file_name,
-          (err) => {
-            if (err) throw err;
-          },
-        );
+        fs.unlink(path.join(__dirname, '../../uploads/') + file_name, (err) => {
+          if (err) throw err;
+        });
       }
       return new HttpException(
         {
