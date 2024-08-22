@@ -28,7 +28,7 @@ export class FileController {
     FilesInterceptor('files', null, {
       storage: diskStorage({
         destination: (req, file, cb) => {
-          cb(null, '../uploads');
+          cb(null, './uploads');
         },
         filename: (req, file, cb) => {
           const unique_name =
