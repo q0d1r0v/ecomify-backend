@@ -26,7 +26,7 @@ import { APP_GUARD } from '@nestjs/core';
     BannerModule,
     OrderModule,
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '../', 'uploads'),
+      rootPath: join(__dirname, '../uploads'),
       serveRoot: '/uploads',
     }),
     ThrottlerModule.forRoot([
