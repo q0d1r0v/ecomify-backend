@@ -6,7 +6,11 @@ import { PrismaService } from 'src/database/prisma.service';
 export class AuthService {
   constructor(private prisma: PrismaService) {}
 
-  async loadUsers(): Promise<User[]> {
-    return await this.prisma.user.findMany();
+  register(body) {
+    try {
+      console.log(body);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }

@@ -8,15 +8,15 @@ datasource db {
 }
 
 model User {
-  id         String   @id @default(uuid())
-  name       String
-  email      String   @unique
-  password   String
-  role       Role     @default(CUSTOMER)
-  orders     Order[]
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  Rate       Rate[]
+  id           String   @id @default(uuid())
+  full_name    String
+  phone_number String   @unique
+  password     String
+  role         Role     @default(CUSTOMER)
+  orders       Order[]
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+  Rate         Rate[]
 
   @@map("users")
 }
