@@ -23,7 +23,8 @@ model User {
 
 model Category {
   id         String    @id @default(uuid())
-  name       String    @unique
+  name_uz    String    @unique
+  name_ru    String    @unique
   product    Product[]
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
@@ -32,21 +33,37 @@ model Category {
 }
 
 model Product {
-  id          String      @id @default(uuid())
-  name        String
-  description String?
-  price       Decimal     @db.Decimal(10, 2)
-  stock       Int         @default(0)
-  residue     BigInt      @default(0)
-  category_id String
-  category    Category    @relation(fields: [category_id], references: [id])
-  images      Image[]
-  orderItems  OrderItem[]
-  created_at  DateTime    @default(now())
-  updated_at  DateTime    @updatedAt
-  Rate        Rate[]
+  id             String         @id @default(uuid())
+  name_uz        String
+  name_ru        String
+  description_uz String?
+  description_ru String?
+  price          Decimal        @db.Decimal(10, 2)
+  stock          BigInt         @default(0)
+  category_id    String
+  category       Category       @relation(fields: [category_id], references: [id])
+  images         Image[]
+  orderItems     OrderItem[]
+  created_at     DateTime       @default(now())
+  updated_at     DateTime       @updatedAt
+  Rate           Rate[]
+  ProductItems   ProductItems[]
 
   @@map("products")
+}
+
+model ProductItems {
+  id         String      @id @default(uuid())
+  name_uz    String
+  name_ru    String
+  product_id String
+  Product    Product     @relation(fields: [product_id], references: [id])
+  Image      Image[]
+  OrderItem  OrderItem[]
+  created_at DateTime    @default(now())
+  updated_at DateTime    @updatedAt
+
+  @@map("product_items")
 }
 
 model Rate {
@@ -63,12 +80,15 @@ model Rate {
 }
 
 model Image {
-  id         String   @id @default(uuid())
-  path       String
-  product_id String
-  product    Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id             String        @id @default(uuid())
+  path           String
+  name           String
+  product_id     String
+  product        Product       @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  created_at     DateTime      @default(now())
+  updated_at     DateTime      @updatedAt
+  ProductItems   ProductItems? @relation(fields: [productItemsId], references: [id])
+  productItemsId String?
 
   @@map("images")
 }
@@ -88,15 +108,17 @@ model Order {
 }
 
 model OrderItem {
-  id         String   @id @default(uuid())
-  order_id   String
-  order      Order    @relation(fields: [order_id], references: [id])
-  product_id String
-  product    Product  @relation(fields: [product_id], references: [id])
-  quantity   Int      @default(1)
-  price      Decimal  @db.Decimal(10, 2)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id             String        @id @default(uuid())
+  order_id       String
+  order          Order         @relation(fields: [order_id], references: [id])
+  product_id     String
+  product        Product       @relation(fields: [product_id], references: [id])
+  quantity       Int           @default(1)
+  price          Decimal       @db.Decimal(10, 2)
+  created_at     DateTime      @default(now())
+  updated_at     DateTime      @updatedAt
+  ProductItems   ProductItems? @relation(fields: [productItemsId], references: [id])
+  productItemsId String?
 
   @@map("order_items")
 }
