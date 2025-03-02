@@ -3,10 +3,10 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { PrismaModule } from 'src/database/prisma.module';
 import { JwtModule } from '@nestjs/jwt';
+import { AuthMiddleware } from 'src/middlewares/auth.middleware';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService],
   imports: [
     PrismaModule,
     JwtModule.register({
@@ -14,5 +14,7 @@ import { JwtModule } from '@nestjs/jwt';
       // signOptions: { expiresIn: '24h' },
     }),
   ],
+  providers: [AuthService, AuthMiddleware],
+  exports: [JwtModule],
 })
 export class AuthModule {}
